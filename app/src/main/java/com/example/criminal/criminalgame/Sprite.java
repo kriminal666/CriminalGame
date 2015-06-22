@@ -16,10 +16,10 @@ public class Sprite {
 
     private static final int BMP_ROWS = 4;
     private static final int BMP_COLUMNS = 4;
-    private int x = 0;
-    private int y = 0;
-    private int xSpeed = 2;
-    private int ySpeed = 2;
+    private int x;
+    private int y;
+    private int xSpeed;
+    private int ySpeed;
     private GameView gameView;
     private Bitmap bmp;
     private int currentFrame = 0;
@@ -35,6 +35,8 @@ public class Sprite {
         Random rnd = new Random();
         xSpeed = rnd.nextInt(10)-2;
         ySpeed = rnd.nextInt(10)-2;
+        x = rnd.nextInt(gameView.getWidth() - width);
+        y = rnd.nextInt(gameView.getHeight() - height);
 
     }
 
@@ -43,16 +45,12 @@ public class Sprite {
     private void update() {
 
         if (x > gameView.getWidth() - width - xSpeed || x + xSpeed < 0) {
-
             xSpeed = -xSpeed;
-
         }
         x = x + xSpeed;
 
         if (y > gameView.getHeight() - height - ySpeed || y + ySpeed < 0) {
-
             ySpeed = -ySpeed;
-
         }
         y = y + ySpeed;
         currentFrame = ++currentFrame % BMP_COLUMNS;
@@ -77,6 +75,13 @@ public class Sprite {
         double dirDouble = (Math.atan2(xSpeed, ySpeed) / (Math.PI / 2) + 2);
         int direction = (int) Math.round(dirDouble) % BMP_ROWS;
         return DIRECTION_TO_ANIMATION_MAP[direction];
+
+    }
+
+
+    public boolean isCollition(float x2, float y2) {
+
+        return x2 > x && x2 < x + width && y2 > y && y2 < y + height;
 
     }
 

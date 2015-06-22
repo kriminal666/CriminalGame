@@ -32,7 +32,7 @@ public class GameLoopThread extends Thread {
 
     public void run() {
         //Speed of loop
-        long ticksPS = 100/FPS;
+        long ticksPS = 1000/FPS;
         long startTime;
         long sleepTime;
 
