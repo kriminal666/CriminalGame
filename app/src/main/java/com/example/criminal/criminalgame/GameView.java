@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -109,11 +110,15 @@ public class GameView extends SurfaceView {
         if (System.currentTimeMillis() -lastClick >300){
             lastClick = System.currentTimeMillis();
             synchronized (getHolder()) {
+                //sound efect when touch
+                MediaPlayer mp = MediaPlayer.create(getContext(),R.raw.scream);
                 float x=event.getX();
                 float y = event.getY();
                 for (int i = sprites.size() - 1; i >= 0; i--) {
                     Sprite sprite = sprites.get(i);
                     if (sprite.isCollition(x, y)) {
+                        //Play sound
+                        mp.start();
                         sprites.remove(sprite);
                         //Blood after remove avatar
 
